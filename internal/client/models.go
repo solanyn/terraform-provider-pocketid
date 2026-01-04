@@ -105,7 +105,7 @@ type UpdateUserGroupsRequest struct {
 type UserGroup struct {
 	ID           string        `json:"id,omitempty"`
 	Name         string        `json:"name"`
-	FriendlyName string        `json:"friendlyName"`
+	DisplayName  string        `json:"displayName"`
 	Users        []User        `json:"users,omitempty"`
 	UserCount    int           `json:"userCount,omitempty"`
 	CustomClaims []CustomClaim `json:"customClaims,omitempty"`
@@ -116,8 +116,8 @@ type UserGroup struct {
 
 // UserGroupCreateRequest represents a request to create or update a user group
 type UserGroupCreateRequest struct {
-	Name         string `json:"name"`
-	FriendlyName string `json:"friendlyName"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
 }
 
 // CustomClaim represents a custom claim for users or groups

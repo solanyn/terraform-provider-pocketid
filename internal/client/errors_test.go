@@ -183,8 +183,8 @@ func TestClient_CreateUserGroup_UnmarshalError(t *testing.T) {
 	require.NoError(t, err)
 
 	createReq := &client.UserGroupCreateRequest{
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	}
 
 	result, err := c.CreateUserGroup(createReq)
@@ -197,7 +197,7 @@ func TestClient_UpdateUserGroup_UnmarshalError(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		if _, err := fmt.Fprint(w, `{"friendlyName": 123}`); err != nil { // friendlyName should be string
+		if _, err := fmt.Fprint(w, `{"displayName": 123}`); err != nil { // displayName should be string
 			t.Fatalf("Failed to write response: %v", err)
 		}
 	}))
@@ -207,8 +207,8 @@ func TestClient_UpdateUserGroup_UnmarshalError(t *testing.T) {
 	require.NoError(t, err)
 
 	updateReq := &client.UserGroupCreateRequest{
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	}
 
 	result, err := c.UpdateUserGroup("test-id", updateReq)

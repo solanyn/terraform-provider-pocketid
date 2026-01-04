@@ -35,9 +35,9 @@ type groupsDataSourceModel struct {
 
 // groupModel describes the group data model.
 type groupModel struct {
-	ID           types.String `tfsdk:"id"`
-	Name         types.String `tfsdk:"name"`
-	FriendlyName types.String `tfsdk:"friendly_name"`
+	ID          types.String `tfsdk:"id"`
+	Name        types.String `tfsdk:"name"`
+	DisplayName types.String `tfsdk:"display_name"`
 }
 
 // Metadata returns the data source type name.
@@ -64,7 +64,7 @@ func (d *groupsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest,
 							Description: "The unique name identifier of the group.",
 							Computed:    true,
 						},
-						"friendly_name": schema.StringAttribute{
+						"display_name": schema.StringAttribute{
 							Description: "The friendly display name of the group.",
 							Computed:    true,
 						},
@@ -123,9 +123,9 @@ func (d *groupsDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	data.Groups = make([]groupModel, len(groupsResp.Data))
 	for i, group := range groupsResp.Data {
 		data.Groups[i] = groupModel{
-			ID:           types.StringValue(group.ID),
-			Name:         types.StringValue(group.Name),
-			FriendlyName: types.StringValue(group.FriendlyName),
+			ID:          types.StringValue(group.ID),
+			Name:        types.StringValue(group.Name),
+			DisplayName: types.StringValue(group.DisplayName),
 		}
 	}
 

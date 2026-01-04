@@ -30,9 +30,9 @@ type groupDataSource struct {
 
 // groupDataSourceModel describes the data source data model.
 type groupDataSourceModel struct {
-	ID           types.String `tfsdk:"id"`
-	Name         types.String `tfsdk:"name"`
-	FriendlyName types.String `tfsdk:"friendly_name"`
+	ID          types.String `tfsdk:"id"`
+	Name        types.String `tfsdk:"name"`
+	DisplayName types.String `tfsdk:"display_name"`
 }
 
 // Metadata returns the data source type name.
@@ -56,7 +56,7 @@ func (d *groupDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, 
 				Optional:    true,
 				Computed:    true,
 			},
-			"friendly_name": schema.StringAttribute{
+			"display_name": schema.StringAttribute{
 				Description: "The friendly display name of the group.",
 				Computed:    true,
 			},
@@ -138,15 +138,15 @@ func (d *groupDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 	}
 
 	tflog.Debug(ctx, "Found group", map[string]interface{}{
-		"id":            foundGroup.ID,
-		"name":          foundGroup.Name,
-		"friendly_name": foundGroup.FriendlyName,
+		"id":           foundGroup.ID,
+		"name":         foundGroup.Name,
+		"display_name": foundGroup.DisplayName,
 	})
 
 	// Map response body to model
 	data.ID = types.StringValue(foundGroup.ID)
 	data.Name = types.StringValue(foundGroup.Name)
-	data.FriendlyName = types.StringValue(foundGroup.FriendlyName)
+	data.DisplayName = types.StringValue(foundGroup.DisplayName)
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

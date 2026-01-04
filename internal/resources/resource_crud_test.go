@@ -218,9 +218,9 @@ func TestGroupResource_SchemaValidation(t *testing.T) {
 	assert.True(t, ok, "name should be StringAttribute")
 	assert.True(t, nameAttr.Required, "name should be required")
 
-	friendlyNameAttr, ok := attrs["friendly_name"].(schema.StringAttribute)
-	assert.True(t, ok, "friendly_name should be StringAttribute")
-	assert.True(t, friendlyNameAttr.Required, "friendly_name should be required")
+	displayNameAttr, ok := attrs["display_name"].(schema.StringAttribute)
+	assert.True(t, ok, "display_name should be StringAttribute")
+	assert.True(t, displayNameAttr.Required, "display_name should be required")
 
 	// Computed attributes
 	idAttr, ok := attrs["id"].(schema.StringAttribute)
@@ -386,8 +386,8 @@ func TestGroupResource_APIErrors(t *testing.T) {
 
 	// Test that the client returns an error
 	_, err := testClient.CreateUserGroup(&client.UserGroupCreateRequest{
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	})
 
 	assert.Error(t, err)

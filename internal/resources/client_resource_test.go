@@ -68,9 +68,9 @@ func TestGroupResource_Schema(t *testing.T) {
 	assert.True(t, ok, "name attribute should exist")
 	assert.True(t, nameAttr.IsRequired(), "name should be required")
 
-	friendlyNameAttr, ok := schemaResponse.Schema.Attributes["friendly_name"]
-	assert.True(t, ok, "friendly_name attribute should exist")
-	assert.True(t, friendlyNameAttr.IsRequired(), "friendly_name should be required")
+	displayNameAttr, ok := schemaResponse.Schema.Attributes["display_name"]
+	assert.True(t, ok, "display_name attribute should exist")
+	assert.True(t, displayNameAttr.IsRequired(), "display_name should be required")
 
 	// Verify computed attributes
 	idAttr, ok := schemaResponse.Schema.Attributes["id"]

@@ -231,9 +231,9 @@ func TestClient_ListUsers_Empty(t *testing.T) {
 
 func TestClient_GetUserGroup(t *testing.T) {
 	expectedGroup := &client.UserGroup{
-		ID:           "test-group-id",
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		ID:          "test-group-id",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	}
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -275,14 +275,14 @@ func TestClient_GetUserGroup_NotFound(t *testing.T) {
 
 func TestClient_UpdateUserGroup(t *testing.T) {
 	updateReq := &client.UserGroupCreateRequest{
-		Name:         "updated-group",
-		FriendlyName: "Updated Group",
+		Name:        "updated-group",
+		DisplayName: "Updated Group",
 	}
 
 	expectedGroup := &client.UserGroup{
-		ID:           "test-group-id",
-		Name:         updateReq.Name,
-		FriendlyName: updateReq.FriendlyName,
+		ID:          "test-group-id",
+		Name:        updateReq.Name,
+		DisplayName: updateReq.DisplayName,
 	}
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -345,19 +345,19 @@ func TestClient_DeleteUserGroup_InUse(t *testing.T) {
 func TestClient_ListUserGroups(t *testing.T) {
 	expectedGroups := []client.UserGroup{
 		{
-			ID:           "group1",
-			Name:         "admins",
-			FriendlyName: "Administrators",
+			ID:          "group1",
+			Name:        "admins",
+			DisplayName: "Administrators",
 		},
 		{
-			ID:           "group2",
-			Name:         "users",
-			FriendlyName: "Regular Users",
+			ID:          "group2",
+			Name:        "users",
+			DisplayName: "Regular Users",
 		},
 		{
-			ID:           "group3",
-			Name:         "developers",
-			FriendlyName: "Developers",
+			ID:          "group3",
+			Name:        "developers",
+			DisplayName: "Developers",
 		},
 	}
 

@@ -393,7 +393,7 @@ func (c *Client) GenerateClientSecret(clientID string) (string, error) {
 
 // CreateUser creates a new user
 func (c *Client) CreateUser(user *UserCreateRequest) (*User, error) {
-	body, err := c.doRequest("POST", "/api/users", user)
+	body, err := c.doRequest("POST", "/api/scim/v2/Users", user)
 	if err != nil {
 		return nil, err
 	}
@@ -408,7 +408,7 @@ func (c *Client) CreateUser(user *UserCreateRequest) (*User, error) {
 
 // GetUser retrieves a user by ID
 func (c *Client) GetUser(userID string) (*User, error) {
-	body, err := c.doRequest("GET", fmt.Sprintf("/api/users/%s", userID), nil)
+	body, err := c.doRequest("GET", fmt.Sprintf("/api/scim/v2/Users/%s", userID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -423,7 +423,7 @@ func (c *Client) GetUser(userID string) (*User, error) {
 
 // UpdateUser updates an existing user
 func (c *Client) UpdateUser(userID string, user *UserCreateRequest) (*User, error) {
-	body, err := c.doRequest("PUT", fmt.Sprintf("/api/users/%s", userID), user)
+	body, err := c.doRequest("PUT", fmt.Sprintf("/api/scim/v2/Users/%s", userID), user)
 	if err != nil {
 		return nil, err
 	}
@@ -438,13 +438,13 @@ func (c *Client) UpdateUser(userID string, user *UserCreateRequest) (*User, erro
 
 // DeleteUser deletes a user
 func (c *Client) DeleteUser(userID string) error {
-	_, err := c.doRequest("DELETE", fmt.Sprintf("/api/users/%s", userID), nil)
+	_, err := c.doRequest("DELETE", fmt.Sprintf("/api/scim/v2/Users/%s", userID), nil)
 	return err
 }
 
 // ListUsers retrieves all users
 func (c *Client) ListUsers() (*PaginatedResponse[User], error) {
-	body, err := c.doRequest("GET", "/api/users", nil)
+	body, err := c.doRequest("GET", "/api/scim/v2/Users", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +464,7 @@ func (c *Client) UpdateUserGroups(userID string, groupIDs []string) error {
 		groupIDs = []string{}
 	}
 	req := UpdateUserGroupsRequest{UserGroupIDs: groupIDs}
-	_, err := c.doRequest("PUT", fmt.Sprintf("/api/users/%s/user-groups", userID), req)
+	_, err := c.doRequest("PUT", fmt.Sprintf("/api/scim/v2/Users/%s/user-groups", userID), req)
 	return err
 }
 
@@ -472,7 +472,7 @@ func (c *Client) UpdateUserGroups(userID string, groupIDs []string) error {
 
 // CreateUserGroup creates a new user group
 func (c *Client) CreateUserGroup(group *UserGroupCreateRequest) (*UserGroup, error) {
-	body, err := c.doRequest("POST", "/api/user-groups", group)
+	body, err := c.doRequest("POST", "/api/scim/v2/Groups", group)
 	if err != nil {
 		return nil, err
 	}
@@ -487,7 +487,7 @@ func (c *Client) CreateUserGroup(group *UserGroupCreateRequest) (*UserGroup, err
 
 // GetUserGroup retrieves a user group by ID
 func (c *Client) GetUserGroup(groupID string) (*UserGroup, error) {
-	body, err := c.doRequest("GET", fmt.Sprintf("/api/user-groups/%s", groupID), nil)
+	body, err := c.doRequest("GET", fmt.Sprintf("/api/scim/v2/Groups/%s", groupID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -502,7 +502,7 @@ func (c *Client) GetUserGroup(groupID string) (*UserGroup, error) {
 
 // UpdateUserGroup updates an existing user group
 func (c *Client) UpdateUserGroup(groupID string, group *UserGroupCreateRequest) (*UserGroup, error) {
-	body, err := c.doRequest("PUT", fmt.Sprintf("/api/user-groups/%s", groupID), group)
+	body, err := c.doRequest("PUT", fmt.Sprintf("/api/scim/v2/Groups/%s", groupID), group)
 	if err != nil {
 		return nil, err
 	}
@@ -517,13 +517,13 @@ func (c *Client) UpdateUserGroup(groupID string, group *UserGroupCreateRequest) 
 
 // DeleteUserGroup deletes a user group
 func (c *Client) DeleteUserGroup(groupID string) error {
-	_, err := c.doRequest("DELETE", fmt.Sprintf("/api/user-groups/%s", groupID), nil)
+	_, err := c.doRequest("DELETE", fmt.Sprintf("/api/scim/v2/Groups/%s", groupID), nil)
 	return err
 }
 
 // ListUserGroups retrieves all user groups
 func (c *Client) ListUserGroups() (*PaginatedResponse[UserGroup], error) {
-	body, err := c.doRequest("GET", "/api/user-groups", nil)
+	body, err := c.doRequest("GET", "/api/scim/v2/Groups", nil)
 	if err != nil {
 		return nil, err
 	}
