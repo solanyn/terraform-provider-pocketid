@@ -466,9 +466,9 @@ func TestClient_CreateUser(t *testing.T) {
 // Test Group-related methods
 func TestClient_CreateUserGroup(t *testing.T) {
 	expectedGroup := &client.UserGroup{
-		ID:           "test-group-id",
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		ID:          "test-group-id",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	}
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -479,7 +479,7 @@ func TestClient_CreateUserGroup(t *testing.T) {
 		err := json.NewDecoder(r.Body).Decode(&req)
 		require.NoError(t, err)
 		assert.Equal(t, "test-group", req.Name)
-		assert.Equal(t, "Test Group", req.FriendlyName)
+		assert.Equal(t, "Test Group", req.DisplayName)
 
 		w.Header().Set("Content-Type", "application/json")
 		if err := json.NewEncoder(w).Encode(expectedGroup); err != nil {
@@ -492,8 +492,8 @@ func TestClient_CreateUserGroup(t *testing.T) {
 	require.NoError(t, err)
 
 	createReq := &client.UserGroupCreateRequest{
-		Name:         "test-group",
-		FriendlyName: "Test Group",
+		Name:        "test-group",
+		DisplayName: "Test Group",
 	}
 
 	result, err := c.CreateUserGroup(createReq)

@@ -164,13 +164,13 @@ resource "pocketid_user" "test" {
 func testAccResourceUserConfig_withGroups(username, email string) string {
 	return fmt.Sprintf(`
 resource "pocketid_group" "test1" {
-  name          = "test-group-1"
-  friendly_name = "Test group 1"
+  name         = "test-group-1"
+  display_name = "Test group 1"
 }
 
 resource "pocketid_group" "test2" {
-  name          = "test-group-2"
-  friendly_name = "Test group 2"
+  name         = "test-group-2"
+  display_name = "Test group 2"
 }
 
 resource "pocketid_user" "test" {
@@ -190,13 +190,13 @@ resource "pocketid_user" "test" {
 func testAccResourceUserConfig_withSingleGroup(username, email string) string {
 	return fmt.Sprintf(`
 resource "pocketid_group" "test1" {
-  name          = "test-group-1"
-  friendly_name = "Test group 1"
+  name         = "test-group-1"
+  display_name = "Test group 1"
 }
 
 resource "pocketid_group" "test2" {
-  name          = "test-group-2"
-  friendly_name = "Test group 2"
+  name         = "test-group-2"
+  display_name = "Test group 2"
 }
 
 resource "pocketid_user" "test" {

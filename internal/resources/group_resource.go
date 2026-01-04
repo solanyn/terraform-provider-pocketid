@@ -36,9 +36,9 @@ type groupResource struct {
 
 // groupResourceModel maps the resource schema data.
 type groupResourceModel struct {
-	ID           types.String `tfsdk:"id"`
-	Name         types.String `tfsdk:"name"`
-	FriendlyName types.String `tfsdk:"friendly_name"`
+	ID          types.String `tfsdk:"id"`
+	Name        types.String `tfsdk:"name"`
+	DisplayName types.String `tfsdk:"display_name"`
 }
 
 // Metadata returns the resource type name.
@@ -67,7 +67,7 @@ func (r *groupResource) Schema(_ context.Context, _ resource.SchemaRequest, resp
 					stringvalidator.LengthAtLeast(1),
 				},
 			},
-			"friendly_name": schema.StringAttribute{
+			"display_name": schema.StringAttribute{
 				Description: "The friendly display name of the user group.",
 				Required:    true,
 				Validators: []validator.String{
@@ -108,13 +108,13 @@ func (r *groupResource) Create(ctx context.Context, req resource.CreateRequest, 
 
 	// Create the group
 	createReq := &client.UserGroupCreateRequest{
-		Name:         plan.Name.ValueString(),
-		FriendlyName: plan.FriendlyName.ValueString(),
+		Name:        plan.Name.ValueString(),
+		DisplayName: plan.DisplayName.ValueString(),
 	}
 
 	tflog.Debug(ctx, "Creating user group", map[string]any{
-		"name":         createReq.Name,
-		"friendlyName": createReq.FriendlyName,
+		"name":        createReq.Name,
+		"displayName": createReq.DisplayName,
 	})
 
 	groupResp, err := r.client.CreateUserGroup(createReq)
@@ -164,7 +164,7 @@ func (r *groupResource) Read(ctx context.Context, req resource.ReadRequest, resp
 
 	// Update state from API response
 	state.Name = types.StringValue(groupResp.Name)
-	state.FriendlyName = types.StringValue(groupResp.FriendlyName)
+	state.DisplayName = types.StringValue(groupResp.DisplayName)
 
 	// Set the state
 	diags = resp.State.Set(ctx, &state)
@@ -184,14 +184,14 @@ func (r *groupResource) Update(ctx context.Context, req resource.UpdateRequest, 
 
 	// Update the group
 	updateReq := &client.UserGroupCreateRequest{
-		Name:         plan.Name.ValueString(),
-		FriendlyName: plan.FriendlyName.ValueString(),
+		Name:        plan.Name.ValueString(),
+		DisplayName: plan.DisplayName.ValueString(),
 	}
 
 	tflog.Debug(ctx, "Updating user group", map[string]any{
-		"id":           plan.ID.ValueString(),
-		"name":         updateReq.Name,
-		"friendlyName": updateReq.FriendlyName,
+		"id":          plan.ID.ValueString(),
+		"name":        updateReq.Name,
+		"displayName": updateReq.DisplayName,
 	})
 
 	_, err := r.client.UpdateUserGroup(plan.ID.ValueString(), updateReq)
